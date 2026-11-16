@@ -75,3 +75,39 @@ class AlquilerEquipo(Servicio):
             f"Alquiler de equipo por "
             f"{self.dias} dias."
         )
+
+class AsesoriaEspecializada(Servicio):
+
+    def __init__(self, nombre, tarifa_base, horas, nivel):
+
+        super().__init__(nombre, tarifa_base)
+
+        if horas <= 0:
+            raise ServicioError(
+                "Las horas deben ser mayores que cero."
+            )
+
+        self.horas = horas
+        self.nivel = nivel
+
+    def calcular_costo(self):
+
+        factores = {
+            "basico": 1,
+            "intermedio": 1.5,
+            "avanzado": 2
+        }
+
+        return (
+            self.tarifa_base *
+            self.horas *
+            factores.get(
+                self.nivel.lower(), 1
+            )
+        )
+
+    def describir(self):
+        return (
+            f"Asesoria {self.nivel} "
+            f"de {self.horas} horas."
+        )
