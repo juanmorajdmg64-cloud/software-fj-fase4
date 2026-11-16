@@ -29,3 +29,26 @@ class Servicio(ABC):
     @abstractmethod
     def describir(self):
         pass
+
+
+class ReservaSala(Servicio):
+
+    def __init__(self, nombre, tarifa_base, horas):
+
+        super().__init__(nombre, tarifa_base)
+
+        if horas <= 0:
+            raise ServicioError(
+                "Las horas deben ser mayores que cero."
+            )
+
+        self.horas = horas
+
+    def calcular_costo(self):
+        return self.tarifa_base * self.horas
+
+    def describir(self):
+        return (
+            f"Reserva de sala por "
+            f"{self.horas} horas."
+        )
