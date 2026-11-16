@@ -52,3 +52,26 @@ class ReservaSala(Servicio):
             f"Reserva de sala por "
             f"{self.horas} horas."
         )
+
+
+class AlquilerEquipo(Servicio):
+
+    def __init__(self, nombre, tarifa_base, dias):
+
+        super().__init__(nombre, tarifa_base)
+
+        if dias <= 0:
+            raise ServicioError(
+                "Los dias deben ser mayores que cero."
+            )
+
+        self.dias = dias
+
+    def calcular_costo(self):
+        return self.tarifa_base * self.dias
+
+    def describir(self):
+        return (
+            f"Alquiler de equipo por "
+            f"{self.dias} dias."
+        )
